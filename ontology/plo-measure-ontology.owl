@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns="http://www.example.org/plo-measure#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#PLOMeasureOntology">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label>PLO Measurement and Curriculum Alignment Ontology</rdfs:label>
+    <rdfs:comment>Ontology for modeling Program Learning Outcomes (PLOs), KPIs, CLOs, assessments, and instructor permissions with similarity-based recommendation and achievement calculation</rdfs:comment>
+    <owl:versionInfo>1.0</owl:versionInfo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Student">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Student</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#weightValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#WeightCategory"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#canManageCourse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Dean"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Course"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasWeight">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#CLO"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#WeightCategory"/>
+    <rdfs:label>contribution weight to KPI</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasAcademicYear">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#StrongWeight">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#WeightCategory"/>
+    <rdfs:label>Strong</rdfs:label>
+    <weightValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</weightValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Assessment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Assessment</rdfs:label>
+    <rdfs:comment>Quiz, exam, assignment, or project</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Achievement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#alignsWithKPI">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#CLO"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#KPI"/>
+    <rdfs:label>aligns with KPI</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasCourseTitle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasAchievementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Achievement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/similarity#Recommendation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment>A suggested entity (instructor, CLO, KPI, PLO) with confidence score</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasCourseDescription">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/bloom-taxonomy#Understand">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/bloom-taxonomy#BloomLevel"/>
+    <rdfs:label>Understand</rdfs:label>
+    <rdfs:comment>Construct meaning from instructional messages</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasPLO">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Program"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#PLO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#HeadOfDepartment">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#Instructor"/>
+    <rdfs:label>Head of Department</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#enrolledIn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Student"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Course"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#forQuestion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Grade"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Question"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasSection">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#canModifyCLO">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Instructor"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#CLO"/>
+    <rdfs:label>can modify CLO</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasCourse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Program"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Course"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/bloom-taxonomy#Evaluate">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/bloom-taxonomy#BloomLevel"/>
+    <rdfs:label>Evaluate</rdfs:label>
+    <rdfs:comment>Make judgments based on criteria and standards</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasScore">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Grade"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/bloom-taxonomy#BloomLevel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Bloom's Taxonomy Level</rdfs:label>
+    <rdfs:comment>Cognitive process dimension of Bloom's Taxonomy (Revised)</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#MiddleWeight">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#WeightCategory"/>
+    <rdfs:label>Middle</rdfs:label>
+    <weightValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.66</weightValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasCLO">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#CLO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasKPICategory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#KPI"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#KPICategory"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#receivesGrade">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Student"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Grade"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Grade">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Grade</rdfs:label>
+    <rdfs:comment>Student's score on a specific question</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#WeakWeight">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#WeightCategory"/>
+    <rdfs:label>Weak</rdfs:label>
+    <weightValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.33</weightValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#KPI">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#LearningOutcome"/>
+    <rdfs:label>Key Performance Indicator</rdfs:label>
+    <rdfs:comment>Measurable indicator linked to PLOs, categorized as Knowledge, Skill, or Competency</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasPLODescription">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#PLO"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#PLO">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#LearningOutcome"/>
+    <rdfs:label>Program Learning Outcome</rdfs:label>
+    <rdfs:comment>High-level outcome for an entire academic program</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasQuestion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Assessment"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Question"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#alignsWithPLO">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#KPI"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#PLO"/>
+    <rdfs:label>aligns with PLO</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasKPI">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#PLO"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#KPI"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasAssessment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Assessment"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#measuresCLO">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Question"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#CLO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/bloom-taxonomy#Create">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/bloom-taxonomy#BloomLevel"/>
+    <rdfs:label>Create</rdfs:label>
+    <rdfs:comment>Put elements together to form a coherent or functional whole</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasCourseCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasSemesterNumber">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Course"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Instructor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Instructor</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#OrganizationalUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/bloom-taxonomy#Apply">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/bloom-taxonomy#BloomLevel"/>
+    <rdfs:label>Apply</rdfs:label>
+    <rdfs:comment>Carry out or use a procedure in a given situation</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Program">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#OrganizationalUnit"/>
+    <rdfs:label>Academic Program</rdfs:label>
+    <rdfs:comment>Degree program (e.g., B.Sc. Computer Science)</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasMaxScore">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Question"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Faculty">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#OrganizationalUnit"/>
+    <rdfs:label>Faculty</rdfs:label>
+    <rdfs:comment>Academic faculty/department group</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#KnowledgeKPI">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#KPICategory"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/bloom-taxonomy#Remember">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/bloom-taxonomy#BloomLevel"/>
+    <rdfs:label>Remember</rdfs:label>
+    <rdfs:comment>Retrieve relevant knowledge from long-term memory</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasConfidence">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/similarity#Recommendation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Department">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#OrganizationalUnit"/>
+    <rdfs:label>Department</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#SkillKPI">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#KPICategory"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasKPIName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#KPI"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasBloomLevel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#CLO"/>
+    <rdfs:range rdf:resource="http://www.example.org/bloom-taxonomy#BloomLevel"/>
+    <rdfs:label>has Bloom's taxonomy level</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/similarity#suggests">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/similarity#Recommendation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/bloom-taxonomy#Analyze">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/bloom-taxonomy#BloomLevel"/>
+    <rdfs:label>Analyze</rdfs:label>
+    <rdfs:comment>Break material into constituent parts and determine how parts relate</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Achievement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Achievement</rdfs:label>
+    <rdfs:comment>Calculated achievement value for CLO, KPI, or PLO</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#teaches">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Instructor"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Course"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#LearningOutcome">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/similarity#SimilarityScore">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment>Container for computed similarity between two entities</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasCLODescription">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#CLO"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Question">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Question/Task</rdfs:label>
+    <rdfs:comment>Individual question or task within an assessment</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/similarity#hasSimilarityTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/similarity#SimilarityScore"/>
+    <rdfs:range rdf:resource="http://www.example.org/similarity#SimilarityScore"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Course">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Course</rdfs:label>
+    <rdfs:comment>A taught course with code, title, semester, and year</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#CLO">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#LearningOutcome"/>
+    <rdfs:label>Course Learning Outcome</rdfs:label>
+    <rdfs:comment>Specific outcome for a single course, aligned to KPIs</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#CompetencyKPI">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#KPICategory"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#WeightCategory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#canModifyKPI">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#HeadOfDepartment"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#KPI"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasProgram">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Department"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Program"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#canAssignInstructor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Dean"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Instructor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#canModifyPLO">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#HeadOfDepartment"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#PLO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#Dean">
+    <rdfs:subClassOf rdf:resource="http://www.example.org/plo-measure#Instructor"/>
+    <rdfs:label>Dean</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#hasDepartment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.example.org/plo-measure#Faculty"/>
+    <rdfs:range rdf:resource="http://www.example.org/plo-measure#Department"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.org/plo-measure#KPICategory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+</rdf:RDF>

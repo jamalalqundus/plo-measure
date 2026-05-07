@@ -27,13 +27,13 @@ PLO-MEASURE is an ontology-driven framework for automating the alignment and mea
 - **4.20/5** usefulness rating from pilot user study (n=30)
 
 ## Repository Structure
-plo-measure/
-├── manuscript/ # LaTeX source for IJAIED paper
-├── figures/ # All figures and generation scripts
-├── evaluation/ # Evaluation code (TF-IDF, BERT, SWRL)
-├── data/ # Data generation and loading scripts
-└── docs/ # Ontology documentation
-└── ontology/ # Ontology files
+plo-measure/  
+├── manuscript/ # LaTeX source for IJAIED paper<br>
+├── figures/ # All figures and generation scripts<br>
+├── evaluation/ # Evaluation code (TF-IDF, BERT, SWRL)<br>
+├── data/ # Data generation and loading scripts<br>
+└── docs/ # Ontology documentation<br>
+└── ontology/ # Ontology files<br>
 
 ## Quick Start
 
@@ -53,13 +53,13 @@ pip install -r requirements.txt
 
 ### Running Evaluation
 
-# TF-IDF baseline
+#### TF-IDF baseline
 python evaluation/tfidf_baseline.py
 
-# Generate all figures
+#### Generate all figures
 python figures/generate_figures.py
 
-# Generate synthetic data
+#### Generate synthetic data
 python data/generate_synthetic_data.py
 
 ### Ontology Files
@@ -70,7 +70,7 @@ ontology/plo-measure-ontology.ttl (Turtle)
 ontology/plo-measure-ontology.owl (OWL/XML)
 Load in Protégé: File → Open → select .ttl or .owl file.
 
-## Citation
+### Citation
 If you use PLO-MEASURE in your research, please cite:
 
 @article{ploAlQundus2026,
@@ -81,6 +81,6 @@ If you use PLO-MEASURE in your research, please cite:
   publisher={Springer}
 }
 
-## License
+### License
 
-MIT License - see LICENSE file.
+MIT License - see [LICENSE](./LICENSE) file.

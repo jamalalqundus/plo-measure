@@ -297,61 +297,6 @@ sim:suggests a owl:ObjectProperty ;
 :hasConfidence a owl:DatatypeProperty ;
     rdfs:domain sim:Recommendation ;
     rdfs:range xsd:float .
-
-# ==============================================
-# 11. SWRL Rules for Permission Inference
-# ==============================================
-# Rule 1: Instructor can modify CLOs of courses they teach
-"""
-Instructor(?i) ∧ teaches(?i, ?c) ∧ hasCLO(?c, ?clo) → canModifyCLO(?i, ?clo)
-"""
-
-# Rule 2: Head of Department can modify KPIs in their department
-"""
-HeadOfDepartment(?h) ∧ hasDepartment(?h, ?d) ∧ hasProgram(?d, ?p) ∧ hasPLO(?p, ?plo) ∧ hasKPI(?plo, ?kpi) → canModifyKPI(?h, ?kpi)
-"""
-
-# Rule 3: Head of Department can modify PLOs in their department
-"""
-HeadOfDepartment(?h) ∧ hasDepartment(?h, ?d) ∧ hasProgram(?d, ?p) ∧ hasPLO(?p, ?plo) → canModifyPLO(?h, ?plo)
-"""
-
-# Rule 4: Dean can manage courses in their faculty
-"""
-Dean(?d) ∧ hasFaculty(?d, ?f) ∧ hasDepartment(?f, ?dep) ∧ hasProgram(?dep, ?p) ∧ hasCourse(?p, ?c) → canManageCourse(?d, ?c)
-"""
-
-# ==============================================
-# 12. Achievement Calculation Rules (Conceptual)
-# ==============================================
-# CLO Achievement = Average of (Question scores / Question max scores) for questions measuring that CLO
-# KPI Achievement = Weighted average of CLO achievements for CLOs aligned to that KPI
-# PLO Achievement = Weighted average of KPI achievements for KPIs under that PLO
-#   (with weights: Strong=100%, Middle=66%, Weak=33%)
-
-# ==============================================
-# 13. Similarity Patterns (for Recommendations)
-# ==============================================
-# Pattern 1: CLO similarity based on shared KPI
-"""
-CONSTRUCT { ?clo1 sim:hasSimilarityTo ?clo2 . }
-WHERE {
-  ?clo1 :alignsWithKPI ?kpi .
-  ?clo2 :alignsWithKPI ?kpi .
-  FILTER(?clo1 != ?clo2)
-}
-"""
-
-# Pattern 2: Course similarity based on shared program and Bloom levels
-"""
-CONSTRUCT { ?course1 sim:hasSimilarityTo ?course2 . }
-WHERE {
-  ?course1 :hasProgram ?program .
-  ?course2 :hasProgram ?program .
-  ?course1 :hasCLO ?clo1 .
-  ?course2 :hasCLO ?clo2 .
-  ?clo1 :hasBloomLevel ?bloom .
-  ?clo2 :hasBloomLevel ?bloom .
-  FILTER(?course1 != ?course2)
-}
-"""
+:weightValue a owl:DatatypeProperty ;
+    rdfs:domain :WeightCategory ;
+    rdfs:range xsd:float .
