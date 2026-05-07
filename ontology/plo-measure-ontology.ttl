@@ -1,0 +1,357 @@
+@prefix : <http://www.example.org/plo-measure#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bloom: <http://www.example.org/bloom-taxonomy#> .
+@prefix sim: <http://www.example.org/similarity#> .
+
+# ==============================================
+# 1. Ontology Metadata
+# ==============================================
+:PLOMeasureOntology a owl:Ontology ;
+    rdfs:label "PLO Measurement and Curriculum Alignment Ontology" ;
+    rdfs:comment "Ontology for modeling Program Learning Outcomes (PLOs), KPIs, CLOs, assessments, and instructor permissions with similarity-based recommendation and achievement calculation" ;
+    owl:versionInfo "1.0" .
+
+# ==============================================
+# 2. Bloom's Taxonomy Classes
+# ==============================================
+bloom:BloomLevel a owl:Class ;
+    rdfs:label "Bloom's Taxonomy Level" ;
+    rdfs:comment "Cognitive process dimension of Bloom's Taxonomy (Revised)" .
+
+bloom:Remember rdfs:subClassOf bloom:BloomLevel ;
+    rdfs:label "Remember" ;
+    rdfs:comment "Retrieve relevant knowledge from long-term memory" .
+
+bloom:Understand rdfs:subClassOf bloom:BloomLevel ;
+    rdfs:label "Understand" ;
+    rdfs:comment "Construct meaning from instructional messages" .
+
+bloom:Apply rdfs:subClassOf bloom:BloomLevel ;
+    rdfs:label "Apply" ;
+    rdfs:comment "Carry out or use a procedure in a given situation" .
+
+bloom:Analyze rdfs:subClassOf bloom:BloomLevel ;
+    rdfs:label "Analyze" ;
+    rdfs:comment "Break material into constituent parts and determine how parts relate" .
+
+bloom:Evaluate rdfs:subClassOf bloom:BloomLevel ;
+    rdfs:label "Evaluate" ;
+    rdfs:comment "Make judgments based on criteria and standards" .
+
+bloom:Create rdfs:subClassOf bloom:BloomLevel ;
+    rdfs:label "Create" ;
+    rdfs:comment "Put elements together to form a coherent or functional whole" .
+
+# ==============================================
+# 3. Core Educational Entity Classes
+# ==============================================
+:OrganizationalUnit a owl:Class .
+:Faculty rdfs:subClassOf :OrganizationalUnit ;
+    rdfs:label "Faculty" ;
+    rdfs:comment "Academic faculty/department group" .
+
+:Department rdfs:subClassOf :OrganizationalUnit ;
+    rdfs:label "Department" .
+
+:Program rdfs:subClassOf :OrganizationalUnit ;
+    rdfs:label "Academic Program" ;
+    rdfs:comment "Degree program (e.g., B.Sc. Computer Science)" .
+
+:Course a owl:Class ;
+    rdfs:label "Course" ;
+    rdfs:comment "A taught course with code, title, semester, and year" .
+
+:Student a owl:Class ;
+    rdfs:label "Student" .
+
+:Instructor a owl:Class ;
+    rdfs:label "Instructor" .
+
+:Dean rdfs:subClassOf :Instructor ;
+    rdfs:label "Dean" .
+
+:HeadOfDepartment rdfs:subClassOf :Instructor ;
+    rdfs:label "Head of Department" .
+
+# ==============================================
+# 4. Learning Outcome Hierarchy
+# ==============================================
+:LearningOutcome a owl:Class .
+:PLO rdfs:subClassOf :LearningOutcome ;
+    rdfs:label "Program Learning Outcome" ;
+    rdfs:comment "High-level outcome for an entire academic program" .
+
+:KPI rdfs:subClassOf :LearningOutcome ;
+    rdfs:label "Key Performance Indicator" ;
+    rdfs:comment "Measurable indicator linked to PLOs, categorized as Knowledge, Skill, or Competency" .
+
+:CLO rdfs:subClassOf :LearningOutcome ;
+    rdfs:label "Course Learning Outcome" ;
+    rdfs:comment "Specific outcome for a single course, aligned to KPIs" .
+
+# ==============================================
+# 5. Assessment Structure
+# ==============================================
+:Assessment a owl:Class ;
+    rdfs:label "Assessment" ;
+    rdfs:comment "Quiz, exam, assignment, or project" .
+
+:Question a owl:Class ;
+    rdfs:label "Question/Task" ;
+    rdfs:comment "Individual question or task within an assessment" .
+
+:Grade a owl:Class ;
+    rdfs:label "Grade" ;
+    rdfs:comment "Student's score on a specific question" .
+
+:Achievement a owl:Class ;
+    rdfs:label "Achievement" ;
+    rdfs:comment "Calculated achievement value for CLO, KPI, or PLO" .
+
+# ==============================================
+# 6. Similarity & Recommendation Classes
+# ==============================================
+sim:SimilarityScore a owl:Class ;
+    rdfs:comment "Container for computed similarity between two entities" .
+
+sim:Recommendation a owl:Class ;
+    rdfs:comment "A suggested entity (instructor, CLO, KPI, PLO) with confidence score" .
+
+# ==============================================
+# 7. Weight Categories for KPI Contribution
+# ==============================================
+:WeightCategory a owl:Class .
+:StrongWeight rdfs:subClassOf :WeightCategory ;
+    rdfs:label "Strong" ;
+    :weightValue 1.0 .
+:MiddleWeight rdfs:subClassOf :WeightCategory ;
+    rdfs:label "Middle" ;
+    :weightValue 0.66 .
+:WeakWeight rdfs:subClassOf :WeightCategory ;
+    rdfs:label "Weak" ;
+    :weightValue 0.33 .
+
+# ==============================================
+# 8. KPI Categories
+# ==============================================
+:KPICategory a owl:Class .
+:KnowledgeKPI rdfs:subClassOf :KPICategory .
+:SkillKPI rdfs:subClassOf :KPICategory .
+:CompetencyKPI rdfs:subClassOf :KPICategory .
+
+# ==============================================
+# 9. Object Properties (Relationships)
+# ==============================================
+
+# Organizational hierarchy
+:hasDepartment a owl:ObjectProperty ;
+    rdfs:domain :Faculty ;
+    rdfs:range :Department .
+:hasProgram a owl:ObjectProperty ;
+    rdfs:domain :Department ;
+    rdfs:range :Program .
+:hasCourse a owl:ObjectProperty ;
+    rdfs:domain :Program ;
+    rdfs:range :Course .
+
+# Outcome hierarchy
+:hasPLO a owl:ObjectProperty ;
+    rdfs:domain :Program ;
+    rdfs:range :PLO .
+:hasKPI a owl:ObjectProperty ;
+    rdfs:domain :PLO ;
+    rdfs:range :KPI .
+:hasCLO a owl:ObjectProperty ;
+    rdfs:domain :Course ;
+    rdfs:range :CLO .
+
+# Core semantic alignment properties
+:alignsWithKPI a owl:ObjectProperty ;
+    rdfs:domain :CLO ;
+    rdfs:range :KPI ;
+    rdfs:label "aligns with KPI" .
+:alignsWithPLO a owl:ObjectProperty ;
+    rdfs:domain :KPI ;
+    rdfs:range :PLO ;
+    rdfs:label "aligns with PLO" .
+
+# Bloom's taxonomy association
+:hasBloomLevel a owl:ObjectProperty ;
+    rdfs:domain :CLO ;
+    rdfs:range bloom:BloomLevel ;
+    rdfs:label "has Bloom's taxonomy level" .
+
+# Weight association for CLO to KPI
+:hasWeight a owl:ObjectProperty ;
+    rdfs:domain :CLO ;
+    rdfs:range :WeightCategory ;
+    rdfs:label "contribution weight to KPI" .
+
+# KPI category
+:hasKPICategory a owl:ObjectProperty ;
+    rdfs:domain :KPI ;
+    rdfs:range :KPICategory .
+
+# Assessment relationships
+:hasAssessment a owl:ObjectProperty ;
+    rdfs:domain :Course ;
+    rdfs:range :Assessment .
+:hasQuestion a owl:ObjectProperty ;
+    rdfs:domain :Assessment ;
+    rdfs:range :Question .
+:measuresCLO a owl:ObjectProperty ;
+    rdfs:domain :Question ;
+    rdfs:range :CLO .
+
+# Student performance
+:enrolledIn a owl:ObjectProperty ;
+    rdfs:domain :Student ;
+    rdfs:range :Course .
+:receivesGrade a owl:ObjectProperty ;
+    rdfs:domain :Student ;
+    rdfs:range :Grade .
+:forQuestion a owl:ObjectProperty ;
+    rdfs:domain :Grade ;
+    rdfs:range :Question .
+
+# Instructor permissions (role-based + inference)
+:teaches a owl:ObjectProperty ;
+    rdfs:domain :Instructor ;
+    rdfs:range :Course .
+:canModifyCLO a owl:ObjectProperty ;
+    rdfs:domain :Instructor ;
+    rdfs:range :CLO ;
+    rdfs:label "can modify CLO" .
+:canModifyKPI a owl:ObjectProperty ;
+    rdfs:domain :HeadOfDepartment ;
+    rdfs:range :KPI .
+:canModifyPLO a owl:ObjectProperty ;
+    rdfs:domain :HeadOfDepartment ;
+    rdfs:range :PLO .
+:canManageCourse a owl:ObjectProperty ;
+    rdfs:domain :Dean ;
+    rdfs:range :Course .
+:canAssignInstructor a owl:ObjectProperty ;
+    rdfs:domain :Dean ;
+    rdfs:range :Instructor .
+
+# Similarity and recommendation
+sim:hasSimilarityTo a owl:ObjectProperty ;
+    rdfs:domain sim:SimilarityScore ;
+    rdfs:range sim:SimilarityScore .
+sim:suggests a owl:ObjectProperty ;
+    rdfs:domain sim:Recommendation ;
+    rdfs:range owl:Thing .
+
+# ==============================================
+# 10. Data Properties (Attributes)
+# ==============================================
+:hasCourseCode a owl:DatatypeProperty ;
+    rdfs:domain :Course ;
+    rdfs:range xsd:string .
+:hasCourseTitle a owl:DatatypeProperty ;
+    rdfs:domain :Course ;
+    rdfs:range xsd:string .
+:hasCourseDescription a owl:DatatypeProperty ;
+    rdfs:domain :Course ;
+    rdfs:range xsd:string .
+:hasSemesterNumber a owl:DatatypeProperty ;
+    rdfs:domain :Course ;
+    rdfs:range xsd:integer .
+:hasAcademicYear a owl:DatatypeProperty ;
+    rdfs:domain :Course ;
+    rdfs:range xsd:integer .
+:hasSection a owl:DatatypeProperty ;
+    rdfs:domain :Course ;
+    rdfs:range xsd:integer .
+
+:hasPLODescription a owl:DatatypeProperty ;
+    rdfs:domain :PLO ;
+    rdfs:range xsd:string .
+
+:hasKPIName a owl:DatatypeProperty ;
+    rdfs:domain :KPI ;
+    rdfs:range xsd:string .
+
+:hasCLODescription a owl:DatatypeProperty ;
+    rdfs:domain :CLO ;
+    rdfs:range xsd:string .
+
+:hasMaxScore a owl:DatatypeProperty ;
+    rdfs:domain :Question ;
+    rdfs:range xsd:float .
+:hasScore a owl:DatatypeProperty ;
+    rdfs:domain :Grade ;
+    rdfs:range xsd:float .
+
+:hasAchievementValue a owl:DatatypeProperty ;
+    rdfs:domain :Achievement ;
+    rdfs:range xsd:float .
+:hasThreshold a owl:DatatypeProperty ;
+    rdfs:domain :Achievement ;
+    rdfs:range xsd:float .
+
+:hasConfidence a owl:DatatypeProperty ;
+    rdfs:domain sim:Recommendation ;
+    rdfs:range xsd:float .
+
+# ==============================================
+# 11. SWRL Rules for Permission Inference
+# ==============================================
+# Rule 1: Instructor can modify CLOs of courses they teach
+"""
+Instructor(?i) ∧ teaches(?i, ?c) ∧ hasCLO(?c, ?clo) → canModifyCLO(?i, ?clo)
+"""
+
+# Rule 2: Head of Department can modify KPIs in their department
+"""
+HeadOfDepartment(?h) ∧ hasDepartment(?h, ?d) ∧ hasProgram(?d, ?p) ∧ hasPLO(?p, ?plo) ∧ hasKPI(?plo, ?kpi) → canModifyKPI(?h, ?kpi)
+"""
+
+# Rule 3: Head of Department can modify PLOs in their department
+"""
+HeadOfDepartment(?h) ∧ hasDepartment(?h, ?d) ∧ hasProgram(?d, ?p) ∧ hasPLO(?p, ?plo) → canModifyPLO(?h, ?plo)
+"""
+
+# Rule 4: Dean can manage courses in their faculty
+"""
+Dean(?d) ∧ hasFaculty(?d, ?f) ∧ hasDepartment(?f, ?dep) ∧ hasProgram(?dep, ?p) ∧ hasCourse(?p, ?c) → canManageCourse(?d, ?c)
+"""
+
+# ==============================================
+# 12. Achievement Calculation Rules (Conceptual)
+# ==============================================
+# CLO Achievement = Average of (Question scores / Question max scores) for questions measuring that CLO
+# KPI Achievement = Weighted average of CLO achievements for CLOs aligned to that KPI
+# PLO Achievement = Weighted average of KPI achievements for KPIs under that PLO
+#   (with weights: Strong=100%, Middle=66%, Weak=33%)
+
+# ==============================================
+# 13. Similarity Patterns (for Recommendations)
+# ==============================================
+# Pattern 1: CLO similarity based on shared KPI
+"""
+CONSTRUCT { ?clo1 sim:hasSimilarityTo ?clo2 . }
+WHERE {
+  ?clo1 :alignsWithKPI ?kpi .
+  ?clo2 :alignsWithKPI ?kpi .
+  FILTER(?clo1 != ?clo2)
+}
+"""
+
+# Pattern 2: Course similarity based on shared program and Bloom levels
+"""
+CONSTRUCT { ?course1 sim:hasSimilarityTo ?course2 . }
+WHERE {
+  ?course1 :hasProgram ?program .
+  ?course2 :hasProgram ?program .
+  ?course1 :hasCLO ?clo1 .
+  ?course2 :hasCLO ?clo2 .
+  ?clo1 :hasBloomLevel ?bloom .
+  ?clo2 :hasBloomLevel ?bloom .
+  FILTER(?course1 != ?course2)
+}
+"""
