@@ -72,15 +72,15 @@ Load in Protégé: File → Open → select .ttl or .owl file.
 
 ### Citation
 If you use PLO-MEASURE in your research, please cite:
-
+```bash
 @article{ploAlQundus2026,
   title={PLO-MEASURE: An Ontology-Driven Framework for Learning Outcomes Alignment in Higher Education},
-  author={Al Qundus, Jamal},
+  author={Al Qundus J, Alshargabi B},
   journal={International Journal of Artificial Intelligence in Education},
   year={2026},
   publisher={Springer}
 }
-
+```
 ### License
 
 MIT License - see [LICENSE](./LICENSE) file.
